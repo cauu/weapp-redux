@@ -12,6 +12,8 @@ const config = {
   },
   output: {
     path: BUILD_PATH,
+    library: 'WeappRedux',
+    libraryTarget: 'umd' ,
     filename: 'weapp-redux.js'
   },
   module: {

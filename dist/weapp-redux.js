@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["WeappRedux"] = factory();
+	else
+		root["WeappRedux"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -168,6 +178,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	exports.default = connect;
 
 	var _wrapActionCreators = __webpack_require__(5);
@@ -190,8 +203,8 @@
 	function connect(mapStateToData, mapDispatchToData) {
 	  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-	  var shouldSubscribe = Boolean(mapStateToProps);
-	  var mapState = mapStateToData || defaultMapStateToProps;
+	  var shouldSubscribe = Boolean(mapStateToData);
+	  var mapState = mapStateToData || defaultMapStateToData;
 
 	  var mapDispatch = void 0;
 
@@ -208,8 +221,8 @@
 
 	    function trySubscribe() {
 	      if (shouldSubscribe && !this.unsubscribe) {
-	        this.unsubscribe = this.store.subscribe(this.handleChange.bind(this));
-	        this.handleChange.apply(this);
+	        this.unsubscribe = app.store.subscribe(handleChange.bind(this));
+	        handleChange.apply(this);
 	      }
 	    }
 
@@ -233,6 +246,8 @@
 	        return;
 	      }
 
+	      console.log(mappedState, _typeof(this.setData));
+
 	      this.setData(mappedState);
 	    }
 
@@ -243,13 +258,13 @@
 
 	      trySubscribe.apply(this);
 
-	      pageConfig.onLoad();
+	      pageConfig.onLoad.apply(this);
 	    }
 
 	    function onUnload() {
 	      tryUnsubscribe.apply(this);
 
-	      pageConfig.onUnload();
+	      pageConfig.onUnload.apply(this);
 	    }
 
 	    return Object.assign({}, pageConfig, mapDispatch(app.store.dispatch), { onLoad: onLoad, onUnload: onUnload });
@@ -336,4 +351,6 @@
 	}
 
 /***/ }
-/******/ ]);
+/******/ ])
+});
+;

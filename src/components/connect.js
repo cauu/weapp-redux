@@ -5,8 +5,8 @@ const defaultMapStateToData = state => ({}) // eslint-disable-line no-unused-var
 const defaultMapDispatchToData = dispatch => ({ dispatch })
 
 export default function connect(mapStateToData, mapDispatchToData, options={}) {
-  const shouldSubscribe = Boolean(mapStateToProps);
-  const mapState = mapStateToData || defaultMapStateToProps;
+  const shouldSubscribe = Boolean(mapStateToData);
+  const mapState = mapStateToData || defaultMapStateToData;
 
   let mapDispatch;
 
@@ -23,8 +23,8 @@ export default function connect(mapStateToData, mapDispatchToData, options={}) {
 
     function trySubscribe() {
       if(shouldSubscribe && !this.unsubscribe) {
-        this.unsubscribe = this.store.subscribe(this.handleChange.bind(this));
-        this.handleChange.apply(this);
+        this.unsubscribe = app.store.subscribe(handleChange.bind(this));
+        handleChange.apply(this);
       }
     }
 
@@ -48,6 +48,8 @@ export default function connect(mapStateToData, mapDispatchToData, options={}) {
         return ;
       }
 
+      console.log(mappedState, typeof this.setData);
+      
       this.setData(mappedState);
     }
 
@@ -59,13 +61,13 @@ export default function connect(mapStateToData, mapDispatchToData, options={}) {
 
       trySubscribe.apply(this);
 
-      pageConfig.onLoad();
+      pageConfig.onLoad.apply(this);
     }
 
     function onUnload() {
       tryUnsubscribe.apply(this);
 
-      pageConfig.onUnload();
+      pageConfig.onUnload.apply(this);
     }
 
     return Object.assign({}, pageConfig, mapDispatch(app.store.dispatch), { onLoad, onUnload });
