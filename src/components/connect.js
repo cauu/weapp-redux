@@ -18,7 +18,7 @@ export default function connect(mapStateToData, mapDispatchToData, options={}) {
     mapDispatch = wrapActionCreators(mapDispatchToData);
   }
 
-  return wrapWithConnect(pageConfig) {
+  return function wrapWithConnect(pageConfig) {
     const app = getApp();
 
     function trySubscribe() {
