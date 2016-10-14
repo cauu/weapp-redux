@@ -1,13 +1,13 @@
-require('../../libs/weapp-redux.js');
+const WeappRedux = require('../../libs/weapp-redux.js');
 
 let loadTest = require('../../actions/index.js').loadTest;
 
 const connect = WeappRedux.connect;
 
-const app = getApp();
-
-const mapStateToData = state => {
-  test: state.test
+function mapStateToData(state) {
+  return {
+    test: state.test
+  }
 };
 
 const pageConfig = connect(mapStateToData, { loadTest })({
@@ -15,12 +15,13 @@ const pageConfig = connect(mapStateToData, { loadTest })({
     test: 'default'
   },
 
-  onLoad: () => {
+  onLoad: function() {
   },
 
-  onClick: () => {
+  onClick: function(e) {
     this.loadTest();
   }
+
 });
 
 Page(pageConfig);
