@@ -1,0 +1,11 @@
+<!-- index.wxml -->
+<view class="container">
+  <view class="flex-row text-lg">
+    测试{{test}}
+  </view>
+  <view class="flex-row">
+    <button bindtap="onClick">
+      开始测试
+    </button>
+  </view>
+</view>
